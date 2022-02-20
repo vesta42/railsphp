@@ -23,6 +23,10 @@ class Cache
             case 'mem_cached_store':
                 $class = '\Rails\Cache\Store\MemCachedStore';
                 break;
+
+            case 'apcu_store':
+                $class = '\Rails\Cache\Store\APCStore';
+                break;
             
             case 'null_store':
                 $class = '\Rails\Cache\Store\NullStore';
