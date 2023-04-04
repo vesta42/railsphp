@@ -58,6 +58,18 @@ class Migrator
         
         $classes = get_declared_classes();
         $className = array_pop($classes);
+
+        // BUGFIX vesta42 | #1 Broken Migrations
+        // Original code assumes get_declared_classes() returns classes in a specific order.
+        // There is no such guarantee. The fix is to keep popping until we find the correct class.
+        while (get_parent_class($className) != 'Rails\ActiveRecord\Migration\Base') {
+            if (count($classes) == 0) {
+                throw new Exception\RuntimeException(
+                    sprintf("Migration class for version %s not found.", $version));
+            }
+            $className = array_pop($classes);
+        }
+
         unset($classes);
         
         $migrator = new $className();
