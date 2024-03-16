@@ -5,7 +5,7 @@ trait Tag
 {
     public function tag($name, array $options = array(), $open = false, $escape = false)
     {
-        return '<' . $name . ' ' . $this->_options($options, $escape) . ($open ? '>' : ' />');
+        return '<' . $name . ' ' . $this->_options($options, true) . ($open ? '>' : ' />');
     }
     
     /**
